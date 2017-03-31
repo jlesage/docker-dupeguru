@@ -140,7 +140,7 @@ be done via two methods:
 should not be considered as secure in any way.
 
 ## dupeGuru Deletion Options
-When deleting duplicated files, *dupeGuru* offer two choices:
+When deleting duplicated files, dupeGuru offer two choices:
   * Send files to trash
   * Delete files directly
 

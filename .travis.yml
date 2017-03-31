@@ -1,0 +1,20 @@
+#
+# Travis CI recipe to build docker image.
+#
+
+sudo: required
+
+dist: xenial
+
+language: generic
+
+services:
+  - docker
+
+before_script:
+  - echo "Validating Dockerfile..."
+  - docker run --rm -v "$(pwd)/Dockerfile:/Dockerfile:ro" redcoolbeans/dockerlint
+
+script:
+  - echo "Starting build of Docker image..."
+  - docker build --no-cache --pull -t $TRAVIS_REPO_SLUG:$TRAVIS_JOB_ID .

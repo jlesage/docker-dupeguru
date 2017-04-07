@@ -68,7 +68,7 @@ VOLUME ["/trash"]
 
 # Metadata.
 LABEL \
-      org.label-schema.name="dupegutu" \
+      org.label-schema.name="dupeguru" \
       org.label-schema.description="Docker container for dupeGuru" \
       org.label-schema.version="1.0.0" \
       org.label-schema.vcs-url="https://github.com/jlesage/docker-dupeguru" \

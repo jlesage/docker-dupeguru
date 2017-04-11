@@ -1,6 +1,5 @@
 # Docker container for dupeGuru
-[![](https://images.microbadger.com/badges/image/jlesage/dupeguru.svg)](http://microbadger.com/#/images/jlesage/dupeguru "Get your own image badge on microbadger.com")
-[![Build Status](https://travis-ci.org/jlesage/docker-dupeguru.svg?branch=master)](https://travis-ci.org/jlesage/docker-dupeguru)
+[![Docker Automated build](https://img.shields.io/docker/automated/jlesage/dupeguru.svg)](https://hub.docker.com/r/jlesage/dupeguru/) [![](https://images.microbadger.com/badges/image/jlesage/dupeguru.svg)](http://microbadger.com/#/images/jlesage/dupeguru "Get your own image badge on microbadger.com") [![Build Status](https://travis-ci.org/jlesage/docker-dupeguru.svg?branch=master)](https://travis-ci.org/jlesage/docker-dupeguru)
 
 This is a Docker container for dupeGuru.  The GUI of the application is
 accessed through a modern web browser (no installation or configuration needed

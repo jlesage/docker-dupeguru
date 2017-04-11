@@ -13,13 +13,20 @@ echo "Image built:
     DOCKER_TAG=$DOCKER_TAG
 "
 
-if [ "$DOCKER_TAG" != "latest" ]; then
-    echo "Adding tag 'latest' to image..."
-    docker tag $IMAGE_NAME ${DOCKER_REPO}:latest
-    echo "Pushing image..."
-    docker push ${DOCKER_REPO}:latest
+if [ "$DOCKER_TAG" = "latest" ]; then
+    echo "Image already have the 'latest' tag."
+    DOCKER_NEWTAG=
+elif [[ "$DOCKER_TAG" =~ -beta[0-9.]*$ ]]; then
+    DOCKER_NEWTAG="beta"
 else
-   echo "Image already have the 'latest' tag."
+    DOCKER_NEWTAG="latest"
+fi
+
+if [ -n "$DOCKER_NEWTAG" ]; then
+    echo "Adding tag '$DOCKER_NEWTAG' to image..."
+    docker tag $IMAGE_NAME ${DOCKER_REPO}:$DOCKER_NEWTAG
+    echo "Pushing image..."
+    docker push ${DOCKER_REPO}:$DOCKER_NEWTAG
 fi
 
 echo "post_push hook terminated successfully."

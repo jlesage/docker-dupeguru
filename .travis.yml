@@ -4,8 +4,6 @@
 
 sudo: required
 
-dist: xenial
-
 language: generic
 
 services:

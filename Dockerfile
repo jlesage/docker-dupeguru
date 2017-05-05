@@ -29,8 +29,8 @@ RUN \
     tar xf data.tar.xz -C / && \
 
     # Setup symbolic links for stuff that need to be outside the container.
-    mkdir -p $HOME/.local/share/"Hardcoded Software"/dupeGuru && \
-    ln -s /config/debug.log $HOME/.local/share/"Hardcoded Software"/dupeGuru && \
+    mkdir -p $HOME/.local/share/"Hardcoded Software" && \
+    ln -s /config/share $HOME/.local/share/"Hardcoded Software"/dupeGuru && \
     ln -s /config/QtProject.conf $HOME/.config/QtProject.conf && \
     mkdir -p $HOME/.config/"Hardcoded Software" && \
     ln -s /config/dupeGuru.conf $HOME/.config/"Hardcoded Software"/dupeGuru.conf && \

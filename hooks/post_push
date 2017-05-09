@@ -2,7 +2,8 @@
 #
 # Post push hook for Docker Automated Build.
 #
-# This hook simply adds the 'latest' tag to the image.
+# This hook adds the 'latest' tag to the image.
+#
 
 set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
@@ -16,8 +17,12 @@ echo "Image built:
 if [ "$DOCKER_TAG" = "latest" ]; then
     echo "Image already have the 'latest' tag."
     DOCKER_NEWTAG=
-elif [[ "$DOCKER_TAG" =~ -beta[0-9.]*$ ]]; then
+elif [[ "$DOCKER_TAG" =~ -alpha[0-9]*$ ]]; then
+    DOCKER_NEWTAG="alpha"
+elif [[ "$DOCKER_TAG" =~ -beta[0-9]*$ ]]; then
     DOCKER_NEWTAG="beta"
+elif [[ "$DOCKER_TAG" =~ -rc[0-9]*$ ]]; then
+    DOCKER_NEWTAG="rc"
 else
     DOCKER_NEWTAG="latest"
 fi

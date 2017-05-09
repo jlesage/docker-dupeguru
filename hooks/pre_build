@@ -20,7 +20,10 @@ if [[ ! "$DOCKER_TAG" =~ ^v[0-9\.]+(-(alpha|beta|rc)[0-9]*)?$ ]]; then
 fi
 
 # The version to use is the same has the DOCKER_TAG, minus the initial 'v'.
-export IMAGE_VERSION="${DOCKER_TAG:1}"
+IMAGE_VERSION="${DOCKER_TAG:1}"
+
+# Export our custom variables.
+echo "IMAGE_VERSION=\"$IMAGE_VERSION\"" >> custom_hook_env
 
 echo "Environment variables:
     IMAGE_NAME=$IMAGE_NAME

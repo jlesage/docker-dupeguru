@@ -70,6 +70,6 @@ VOLUME ["/trash"]
 LABEL \
       org.label-schema.name="dupeguru" \
       org.label-schema.description="Docker container for dupeGuru" \
-      org.label-schema.version="1.0.2" \
+      org.label-schema.version="unknown" \
       org.label-schema.vcs-url="https://github.com/jlesage/docker-dupeguru" \
       org.label-schema.schema-version="1.0"

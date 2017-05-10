@@ -54,6 +54,11 @@ RUN apk --no-cache add \
         mesa-dri-swrast \
         dbus
 
+# Generate and install favicons.
+RUN \
+    APP_ICON_URL=https://github.com/jlesage/docker-templates/raw/master/jlesage/images/dupeguru-icon.png && \
+    /opt/install_app_icon.sh "$APP_ICON_URL"
+
 # Add files.
 COPY rootfs/ /
 

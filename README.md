@@ -21,7 +21,7 @@ First create the configuration directory for dupeGuru.  In this example,
 `/docker/appdata/dupeguru` is used.  To find duplicated files under your home
 directory, launch the dupeGuru docker container with the following command:
 ```
-docker run -d \
+docker run -d --rm \
     --name=dupeguru \
     -p 5800:5800 \
     -p 5900:5900 \
@@ -35,7 +35,7 @@ directories and files appear under the `/storage` folder in the container.
 
 ## Usage
 ```
-docker run [-d|--rm] \
+docker run [-d] [--rm] \
     --name=dupeguru \
     [-e <VARIABLE_NAME>=<VALUE>]... \
     [-v <HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]]... \

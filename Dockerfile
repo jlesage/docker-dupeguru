@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.5-v1.2.3
+FROM jlesage/baseimage-gui:alpine-3.5-v1.3.0
 
 # Define variables needed by the build.
 ARG DUPEGURU_VERSION=4.0.3

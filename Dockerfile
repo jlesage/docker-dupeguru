@@ -7,8 +7,10 @@
 # Pull base image.
 FROM jlesage/baseimage-gui:alpine-3.5-v1.3.1
 
-# Define variables needed by the build.
+# Define software versions.
 ARG DUPEGURU_VERSION=4.0.3
+
+# Define software download URLs.
 ARG DUPEGURU_URL=https://launchpad.net/~hsoft/+archive/ubuntu/ppa/+files/dupeguru_${DUPEGURU_VERSION}~xenial_amd64.deb
 
 # Define working directory.
@@ -47,7 +49,7 @@ RUN \
     apk --no-cache del build-dependencies && \
     rm -rf /tmp/*
 
-# Install required packages.
+# Install dependencies.
 RUN apk --no-cache add \
         python3 \
         py3-qt5 \

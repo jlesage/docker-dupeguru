@@ -65,7 +65,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`DISPLAY_HEIGHT`| Height (in pixels) of the display.            | 768     |
 |`VNC_PASSWORD`  | Password needed to connect to the application's GUI.  See the [VNC Pasword](#vnc-password) section for more details. | (unset) |
 |`KEEP_GUIAPP_RUNNING`| When set to `1`, the application will be automatically restarted if it crashes or if user quits it. | (unset) |
-|`APP_NICENESS`  | Priority at which the X application should run.  A niceness value of −20 is the highest priority and 19 is the lowest priority.  By default, niceness is not set, meaning that the default niceness of 0 is used.  **NOTE**: A negative niceness (priority increase) usually requires additional permissions.  In this case, the container should be run with the docker option `--cap-add=SYS_NICE`. | (unset) |
+|`APP_NICENESS`  | Priority at which the application should run.  A niceness value of −20 is the highest priority and 19 is the lowest priority.  By default, niceness is not set, meaning that the default niceness of 0 is used.  **NOTE**: A negative niceness (priority increase) requires additional permissions.  In this case, the container should be run with the docker option `--cap-add=SYS_NICE`. | (unset) |
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
@@ -145,6 +145,7 @@ explicitly the VNC port like this:
     http://<HOST IP ADDR>:5800/?port=<VNC PORT>
 
 ## VNC Password
+
 To restrict access to your application, a password can be specified.  This can
 be done via two methods:
   * By using the `VNC_PASSWORD` environment variable.

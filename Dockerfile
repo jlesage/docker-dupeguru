@@ -19,7 +19,7 @@ WORKDIR /tmp
 # Install dupeGuru.
 RUN \
     # Install packages needed by the build.
-    apk --no-cache add --virtual build-dependencies binutils curl && \
+    apk --no-cache add --virtual build-dependencies binutils curl patch && \
 
     # Download the dupeCuru package.
     echo "Downloading dupeGuru package..." && \
@@ -29,6 +29,11 @@ RUN \
     # Extract the dupeGuru package.
     ar vx dupeguru.deb && \
     tar xf data.tar.xz -C / && \
+
+    # Apply patch for os termination signals handling.
+    cd /usr/share/dupeguru && \
+    curl -# -L https://github.com/jlesage/dupeguru/commit/73dbacace18542e27260514b436c3b7f746fc203.patch | patch -p1 && \
+    cd /tmp && \
 
     # Setup symbolic links for stuff that need to be outside the container.
     mkdir -p $HOME/.local/share/"Hardcoded Software" && \

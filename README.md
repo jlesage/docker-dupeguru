@@ -1,13 +1,13 @@
 # Docker container for dupeGuru
 [![Docker Automated build](https://img.shields.io/docker/automated/jlesage/dupeguru.svg)](https://hub.docker.com/r/jlesage/dupeguru/) [![](https://images.microbadger.com/badges/image/jlesage/dupeguru.svg)](http://microbadger.com/#/images/jlesage/dupeguru "Get your own image badge on microbadger.com") [![Build Status](https://travis-ci.org/jlesage/docker-dupeguru.svg?branch=master)](https://travis-ci.org/jlesage/docker-dupeguru)
 
-This is a Docker container for dupeGuru.  The GUI of the application is
-accessed through a modern web browser (no installation or configuration needed
-on client side) or via any VNC client.
+This is a Docker container for dupeGuru.
+
+The GUI of the application is accessed through a modern web browser (no installation or configuration needed on client side) or via any VNC client.
 
 ---
 
-[![dupeGuru logo](https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/dupeguru-icon.png)](https://www.hardcoded.net/dupeguru/)
+[![dupeGuru logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/dupeguru-icon.png&w=200)](https://www.hardcoded.net/dupeguru/)
 [![dupeGuru](https://dummyimage.com/400x110/ffffff/575757&text=dupeGuru)](https://www.hardcoded.net/dupeguru/)
 
 dupeGuru is a tool to find duplicate files on your computer. It can scan either
@@ -17,23 +17,27 @@ that can find duplicate filenames even when they are not exactly the same.
 ---
 
 ## Quick Start
-First create the configuration directory for dupeGuru.  In this example,
-`/docker/appdata/dupeguru` is used.  To find duplicated files under your home
-directory, launch the dupeGuru docker container with the following command:
+
+Launch the dupeGuru docker container with the following command:
 ```
 docker run -d --rm \
     --name=dupeguru \
     -p 5800:5800 \
     -p 5900:5900 \
-    -v /var/docker/dupeguru:/config \
-    -v $HOME:/storage \
+    -v /docker/appdata/dupeguru:/config:rw \
+    -v $HOME:/storage:rw \
     jlesage/dupeguru
 ```
 
-Browse to `http://your-host-ip:5800` to access the dupeGuru GUI.  Your home
-directories and files appear under the `/storage` folder in the container.
+Where:
+  - `/docker/appdata/dupeguru`: This is where the application stores its configuration, log and any files needing persistency.
+  - `$HOME`: This location contains files from your host that need to be accessible by the application.
+
+Browse to `http://your-host-ip:5800` to access the dupeGuru GUI.  Files from
+the host appear under the `/storage` folder in the container.
 
 ## Usage
+
 ```
 docker run [-d] [--rm] \
     --name=dupeguru \
@@ -58,16 +62,14 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 
 | Variable       | Description                                  | Default |
 |----------------|----------------------------------------------|---------|
-|`USER_ID`       | ID of the user the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | 1000    |
-|`GROUP_ID`      | ID of the group the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | 1000    |
-|`TZ`            | [TimeZone] of the container.  Timezone can also be set by mapping `/etc/localtime` between the host and the container. | Etc/UTC |
-|`DISPLAY_WIDTH` | Width (in pixels) of the display.             | 1280    |
-|`DISPLAY_HEIGHT`| Height (in pixels) of the display.            | 768     |
-|`VNC_PASSWORD`  | Password needed to connect to the application's GUI.  See the [VNC Pasword](#vnc-password) section for more details. | (unset) |
-|`KEEP_GUIAPP_RUNNING`| When set to `1`, the application will be automatically restarted if it crashes or if user quits it. | (unset) |
-|`APP_NICENESS`  | Priority at which the application should run.  A niceness value of −20 is the highest priority and 19 is the lowest priority.  By default, niceness is not set, meaning that the default niceness of 0 is used.  **NOTE**: A negative niceness (priority increase) requires additional permissions.  In this case, the container should be run with the docker option `--cap-add=SYS_NICE`. | (unset) |
-
-[TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+|`USER_ID`| ID of the user the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | `1000` |
+|`GROUP_ID`| ID of the group the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | `1000` |
+|`TZ`| [TimeZone] of the container.  Timezone can also be set by mapping `/etc/localtime` between the host and the container. | `Etc/UTC` |
+|`DISPLAY_WIDTH`| Width (in pixels) of the application's window. | `1280` |
+|`DISPLAY_HEIGHT`| Height (in pixels) of the application's window. | `768` |
+|`VNC_PASSWORD`| Password needed to connect to the application's GUI.  See the [VNC Pasword](#vnc-password) section for more details. | (unset) |
+|`KEEP_GUIAPP_RUNNING`| When set to `1`, the application will be automatically restarted if it crashes or if user quits it. | `0` |
+|`APP_NICENESS`| Priority at which the application should run.  A niceness value of -20 is the highest priority and 19 is the lowest priority.  By default, niceness is not set, meaning that the default niceness of 0 is used.  **NOTE**: A negative niceness (priority increase) requires additional permissions.  In this case, the container should be run with the docker option `--cap-add=SYS_NICE`. | (unset) |
 
 ### Data Volumes
 
@@ -77,9 +79,9 @@ format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
 
 | Container path  | Permissions | Description |
 |-----------------|-------------|-------------|
-|`/config`        | rw          | This is where the application stores its configuration, log and any files needing persistency. |
-|`/storage`       | rw          | This is where files and folders on your host are made available to the application. |
-|`/trash`         | rw          | This is where duplicated files are moved when they are sent to trash. |
+|`/config`| rw | This is where the application stores its configuration, log and any files needing persistency. |
+|`/storage`| rw | This location contains files from your host that need to be accessible by the application. |
+|`/trash`| rw | This is where duplicated files are moved when they are sent to trash. |
 
 ### Ports
 
@@ -90,8 +92,8 @@ container cannot be changed, but you are free to use any port on the host side.
 
 | Port | Mapping to host | Description |
 |------|-----------------|-------------|
-| 5800 | Mandatory       | Port used to access the application's GUI via the web interface. |
-| 5900 | Mandatory       | Port used to access the application's GUI via the VNC protocol.  |
+| 5800 | Mandatory | Port used to access the application's GUI via the web interface. |
+| 5900 | Mandatory | Port used to access the application's GUI via the VNC protocol. |
 
 ## User/Group IDs
 
@@ -157,6 +159,7 @@ be done via two methods:
 should not be considered as secure in any way.
 
 ## dupeGuru Deletion Options
+
 When deleting duplicated files, dupeGuru offer two choices:
   * Send files to trash
   * Delete files directly
@@ -168,3 +171,5 @@ data before the actual deletion.
 There is also an option to link deleted files.  It is not recommended to enable
 this option, since there is a good chance that created links won't make sense
 outside the container.
+
+[TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones

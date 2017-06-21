@@ -1,0 +1,145 @@
+<!--
+Definitions for dupeGuru docker container.
+
+This file is used as data source to generate README.md and unRAID template files
+from Jinja2 templates.
+-->
+<app>
+    <id>1</id>
+    <friendly_name>dupeGuru</friendly_name>
+    <name>{{ app.friendly_name|lower|replace(' ', '-') }}</name>
+    <project>
+      <description>
+dupeGuru is a tool to find duplicate files on your computer. It can scan either
+filenames or contents. The filename scan features a fuzzy matching algorithm
+that can find duplicate filenames even when they are not exactly the same.
+      </description>
+      <url>https://www.hardcoded.net/dupeguru/</url>
+    </project>
+    <unraid>
+      <support_url>https://forums.lime-technology.com/topic/56392-support-dupeguru/</support_url>
+      <category>Tools:</category>
+    </unraid>
+    <container>
+      <rough_download_size>100MB</rough_download_size>
+      <storage_permissions>rw</storage_permissions>
+      <!-- Environment variables -->
+      <!-- Volumes -->
+      <volume>
+        <container_path>/trash</container_path>
+        <host_path_example/>
+        <description>This is where duplicated files are moved when they are sent to trash.</description>
+        <permissions>rw</permissions>
+        <unraid_template>
+          <title>Trash</title>
+          <description>This is where dupeGuru moves files when they are sent to trash.  This can be removed if a trash is not wanted (i.e. if you want files to be permanently deleted).[br]Container path: /trash</description>
+          <default>/mnt/user/trash</default>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </volume>
+      <!-- Network ports -->
+      <!-- Devices -->
+    </container>
+    <!-- Extra stuff to be added to the documentation. -->
+    <documentation>
+      <section>
+        <title level="2">dupeGuru Deletion Options</title>
+        <content>
+When deleting duplicated files, dupeGuru offer two choices:
+  * Send files to trash
+  * Delete files directly
+
+The first option moves files to the `/trash` directory inside the container.
+This operation can be slow for large files since it may imply a copy of the
+data before the actual deletion.
+
+There is also an option to link deleted files.  It is not recommended to enable
+this option, since there is a good chance that created links won't make sense
+outside the container.
+        </content>
+      </section>
+    </documentation>
+    <!-- Changelog of the application. -->
+    <history>
+      <release>
+        <version>1.3.0</version>
+        <date>2017-06-06</date>
+        <change>Now using baseimage v1.4.0, which brings the following changes:</change>
+        <change level="2">Improved process startup and shutdown.</change>
+        <change level="2">When container is stopped or restarted, processes are now terminated gracefully and in proper order. This allow the GUI application to execute its termination routine.</change>
+        <change level="2">No more error messages when container is stopped or restarted.</change>
+        <change>Added OS signals handling to dupeGuru. This allows the application to properly close when the container is stopped or restarted.</change>
+        <change>Now that dupeGuru closes gracefully, all settings are properly saved.</change>
+      </release>
+      <release>
+        <version>1.2.2</version>
+        <date>2017-06-01</date>
+        <change>Now using baseimage v1.3.2, which brings the following changes:</change>
+        <change level="2">Fixed password modal window not showing up when required.</change>
+      </release>
+      <release>
+        <version>1.2.1</version>
+        <date>2017-05-17</date>
+        <change>Now using baseimage v1.3.1, which brings the following changes:</change>
+        <change level="2">Better font is used.</change>
+      </release>
+      <release>
+        <version>1.2.0</version>
+        <date>2017-05-15</date>
+        <change>Now using baseimage v1.3.0, which brings the following changes:</change>
+        <change level="2">Added support for application's niceness configuration.</change>
+      </release>
+      <release>
+        <version>1.1.3</version>
+        <date>2017-05-12</date>
+        <change>Now using baseimage v1.2.3, which brings the following changes:</change>
+        <change level="2">Adjusted the default display width to 1280 pixels, as documented.</change>
+      </release>
+      <release>
+        <version>1.1.2</version>
+        <date>2017-05-11</date>
+        <change>Now using baseimage v1.2.2, which brings the following changes:</change>
+        <change level="2">Fixed issue with the web UI, where the remote application's window was not taking the available height after activating/deactivating the hideable navigation bar.</change>
+      </release>
+      <release>
+        <version>1.1.1</version>
+        <date>2017-05-10</date>
+        <change>Now using baseimage v1.2.1, which brings the following changes:</change>
+        <change level="2">Fixed issue where clipboard content was lost on modal window closure.</change>
+      </release>
+      <release>
+        <version>1.1.0</version>
+        <date>2017-05-10</date>
+        <change>Now using baseimage v1.2.0, which brings a new UI for web access to the container:</change>
+        <change level="2">Based on Bootstrap and JQuery.</change>
+        <change level="2">Mobile friendly.</change>
+        <change level="2">Hideable navigation bar.</change>
+        <change level="2">Downscaling support.</change>
+        <change level="2">Clipboard support.</change>
+        <change level="2">Fullscreen toggle.</change>
+        <change level="2">Draggable remote screen when it doesn't fix the client's window.</change>
+        <change level="2">Virtual keyboard support on mobile.</change>
+        <change level="2">Right-click via long touch on mobile.</change>
+      </release>
+      <release>
+        <version>1.0.2</version>
+        <date>2017-05-05</date>
+        <change>Now using baseimage v1.0.1, which brings the following fixes:</change>
+        <change level="2">Fixed issue where VNC password was still applied after removal of the VNC password file from /config.</change>
+        <change level="2">Fixed mouse handling when accessing the container's GUI via Microsoft Internet Explorer/Edge.</change>
+        <change level="2">Fixed a crash of the build-in VNC server.</change>
+      </release>
+      <release>
+        <version>1.0.1</version>
+        <date>2017-05-05</date>
+        <change>Some configuration files used by dupeGuru were not saved outside the container.</change>
+      </release>
+      <release>
+        <version>1.0.0</version>
+        <date>2017-04-07</date>
+        <change>Initial release.</change>
+      </release>
+    </history>
+</app>

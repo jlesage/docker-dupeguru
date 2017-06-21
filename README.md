@@ -7,8 +7,7 @@ The GUI of the application is accessed through a modern web browser (no installa
 
 ---
 
-[![dupeGuru logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/dupeguru-icon.png&w=200)](https://www.hardcoded.net/dupeguru/)
-[![dupeGuru](https://dummyimage.com/400x110/ffffff/575757&text=dupeGuru)](https://www.hardcoded.net/dupeguru/)
+[![dupeGuru logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/dupeguru-icon.png&w=200)](https://www.hardcoded.net/dupeguru/)[![dupeGuru](https://dummyimage.com/400x110/ffffff/575757&text=dupeGuru)](https://www.hardcoded.net/dupeguru/)
 
 dupeGuru is a tool to find duplicate files on your computer. It can scan either
 filenames or contents. The filename scan features a fuzzy matching algorithm

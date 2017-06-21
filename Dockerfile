@@ -21,9 +21,8 @@ RUN \
     # Install packages needed by the build.
     apk --no-cache add --virtual build-dependencies binutils curl patch && \
 
-    # Download the dupeCuru package.
+    # Download the dupeGuru package.
     echo "Downloading dupeGuru package..." && \
-    echo "${DUPEGURU_URL}" && \
     curl -# -L -o dupeguru.deb ${DUPEGURU_URL} && \
 
     # Extract the dupeGuru package.

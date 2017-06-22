@@ -64,6 +64,11 @@ outside the container.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.4.0</version>
+        <date>2017-06-22</date>
+        <change>Switched to Alpine Linux 3.6 baseimage.</change>
+      </release>
+      <release>
         <version>1.3.1</version>
         <date>2017-06-21</date>
         <change>Now using baseimage v1.4.2, which brings the following changes (from last used version):</change>

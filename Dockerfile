@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.5-v1.4.2
+FROM jlesage/baseimage-gui:alpine-3.6-v1.4.2
 
 # Define software versions.
 ARG DUPEGURU_VERSION=4.0.3
@@ -28,6 +28,12 @@ RUN \
     # Extract the dupeGuru package.
     ar vx dupeguru.deb && \
     tar xf data.tar.xz -C / && \
+
+    # Fix for Python3.6 support.
+    CPYTHON_LIBS="$(find /usr/share/dupeguru -name "*cpython-35m-x86_64*")" && \
+    for LIB in $CPYTHON_LIBS; do \
+        mv "$LIB" "$(echo "$LIB" | sed "s/cpython-35m-x86_64/cpython-36m-x86_64/")"; \
+    done && \
 
     # Apply patch for os termination signals handling.
     cd /usr/share/dupeguru && \

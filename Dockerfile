@@ -55,6 +55,10 @@ RUN \
     sed -i 's/<application type="normal">/<application type="normal" title="dupeGuru">/' \
         $HOME/.config/openbox/rc.xml && \
 
+    # Make sure the main window is always in the background.
+    sed -i '/<application type="normal" title="dupeGuru">/a \    <layer>below</layer>' \
+        $HOME/.config/openbox/rc.xml && \
+
     # Cleanup.
     apk --no-cache del build-dependencies && \
     rm -rf /tmp/*

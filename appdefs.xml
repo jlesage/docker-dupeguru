@@ -64,6 +64,11 @@ outside the container.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.4.2</version>
+        <date>2017-06-23</date>
+        <change>Make sure the main window is always below other ones.</change>
+      </release>
+      <release>
         <version>1.4.1</version>
         <date>2017-06-22</date>
         <change>Now using baseimage v1.4.3, which brings the following changes:</change>

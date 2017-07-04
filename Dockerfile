@@ -59,6 +59,11 @@ RUN \
     sed -i '/<application type="normal" title="dupeGuru">/a \    <layer>below</layer>' \
         $HOME/.config/openbox/rc.xml && \
 
+    # Make sure dialog windows are always above other ones.
+    #sed -i 's|</applications>|    <application type="dialog">\n  <layer>above</layer>\n  </application>\n</applications>|' \
+    sed -i '/<\/applications>/i \  <application type="dialog">\n    <layer>above<\/layer>\n  <\/application>' \
+        $HOME/.config/openbox/rc.xml && \
+
     # Cleanup.
     apk --no-cache del build-dependencies && \
     rm -rf /tmp/*

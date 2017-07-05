@@ -14,7 +14,7 @@ fi
 # Install default config if needed.
 if [ ! -f /config/dupeGuru.conf ]
 then
-  cp /home/guiapp/.config/"Hardcoded Software"/dupeGuru.conf.default /config/dupeGuru.conf
+  cp /defaults/dupeGuru.conf /config/dupeGuru.conf
 fi
 
 # Adjust ownership.

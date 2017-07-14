@@ -10,10 +10,12 @@ mkdir -p "$XDG_CONFIG_HOME/Hardcoded Software" \
 [ ! -f /config/debug.log ] || mv -v /config/debug.log "$XDG_DATA_HOME/Hardcoded Software/dupeGuru/"
 [ ! -d /config/share ] || mv -v /config/share/* "$XDG_DATA_HOME/Hardcoded Software/dupeGuru/"
 [ ! -d /config/share ] || rm -r /config/share
+[ ! -f /config/QtProject.conf ] || mv -v /config/QtProject.conf "$XDG_CONFIG_HOME/"
 [ ! -f /config/dupeGuru.conf ] || mv -v /config/dupeGuru.conf "$XDG_CONFIG_HOME/Hardcoded Software/"
 
 # Install default config if needed.
 [ -f "$XDG_CONFIG_HOME/Hardcoded Software/dupeGuru.conf" ] || cp -v /defaults/dupeGuru.conf "$XDG_CONFIG_HOME/Hardcoded Software/"
+[ -f "$XDG_CONFIG_HOME/QtProject.conf" ] || cp -v /defaults/QtProject.conf "$XDG_CONFIG_HOME/"
 
 # Adjust ownership.
 chown -R $USER_ID:$GROUP_ID /config

@@ -48,6 +48,14 @@ outside the container.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.6.0</version>
+        <date>2017-07-17</date>
+        <change>Now using baseimage v2.0.0, which brings the following changes:</change>
+        <change level="2">Various internal enhancements.</change>
+        <change level="2">Fixed the way a service waits for another one.</change>
+        <change>Added a default QtProject.conf configuration file.</change>
+      </release>
+      <release>
         <version>1.5.0</version>
         <date>2017-07-04</date>
         <change>Fixed dialog windows not appearing on top of other ones.</change>

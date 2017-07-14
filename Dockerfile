@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.6-v1.5.0
+FROM jlesage/baseimage-gui:alpine-3.6-v2.0.0
 
 # Define software versions.
 ARG DUPEGURU_VERSION=4.0.3
@@ -19,7 +19,7 @@ WORKDIR /tmp
 # Install dupeGuru.
 RUN \
     # Install packages needed by the build.
-    apk --no-cache add --virtual build-dependencies binutils curl patch && \
+    add-pkg --virtual build-dependencies binutils curl patch && \
 
     # Download the dupeGuru package.
     echo "Downloading dupeGuru package..." && \
@@ -40,36 +40,27 @@ RUN \
     curl -# -L https://github.com/jlesage/dupeguru/commit/73dbacace18542e27260514b436c3b7f746fc203.patch | patch -p1 && \
     cd /tmp && \
 
-    # Setup symbolic links for stuff that need to be outside the container.
-    mkdir -p $HOME/.local/share/"Hardcoded Software" && \
-    ln -s /config/share $HOME/.local/share/"Hardcoded Software"/dupeGuru && \
-    ln -s /config/QtProject.conf $HOME/.config/QtProject.conf && \
-    mkdir -p $HOME/.config/"Hardcoded Software" && \
-    ln -s /config/dupeGuru.conf $HOME/.config/"Hardcoded Software"/dupeGuru.conf && \
-    chown -R $USER_ID:$GROUP_ID $HOME && \
-
     # Enable direct file deletion by default.
-    #sed -i 's/self.direct = False/self.direct = True/' /usr/share/dupeguru/core/gui/deletion_options.py && \
+    #sed-patch 's/self.direct = False/self.direct = True/' /usr/share/dupeguru/core/gui/deletion_options.py && \
 
     # Maximize only the main/initial window.
-    sed -i 's/<application type="normal">/<application type="normal" title="dupeGuru">/' \
-        $HOME/.config/openbox/rc.xml && \
+    sed-patch 's/<application type="normal">/<application type="normal" title="dupeGuru">/' \
+        /etc/xdg/openbox/rc.xml && \
 
     # Make sure the main window is always in the background.
-    sed -i '/<application type="normal" title="dupeGuru">/a \    <layer>below</layer>' \
-        $HOME/.config/openbox/rc.xml && \
+    sed-patch '/<application type="normal" title="dupeGuru">/a \    <layer>below</layer>' \
+        /etc/xdg/openbox/rc.xml && \
 
     # Make sure dialog windows are always above other ones.
-    #sed -i 's|</applications>|    <application type="dialog">\n  <layer>above</layer>\n  </application>\n</applications>|' \
-    sed -i '/<\/applications>/i \  <application type="dialog">\n    <layer>above<\/layer>\n  <\/application>' \
-        $HOME/.config/openbox/rc.xml && \
+    sed-patch '/<\/applications>/i \  <application type="dialog">\n    <layer>above<\/layer>\n  <\/application>' \
+        /etc/xdg/openbox/rc.xml && \
 
     # Cleanup.
-    apk --no-cache del build-dependencies && \
+    del-pkg build-dependencies && \
     rm -rf /tmp/*
 
 # Install dependencies.
-RUN apk --no-cache add \
+RUN add-pkg \
         python3 \
         py3-qt5 \
         mesa-dri-swrast \
@@ -78,7 +69,7 @@ RUN apk --no-cache add \
 # Generate and install favicons.
 RUN \
     APP_ICON_URL=https://github.com/jlesage/docker-templates/raw/master/jlesage/images/dupeguru-icon.png && \
-    /opt/install_app_icon.sh "$APP_ICON_URL"
+    install_app_icon.sh "$APP_ICON_URL"
 
 # Add files.
 COPY rootfs/ /

@@ -192,9 +192,9 @@ outside the container.
         <permissions>rw</permissions>
         <unraid_template>
           <title>Trash</title>
-          <description>This is where dupeGuru moves files when they are sent to trash.  This can be removed if a trash is not wanted (i.e. if you want files to be permanently deleted).[br]Container path: /trash</description>
-          <default>/mnt/user/trash</default>
-          <display>always</display>
+          <description>This is where dupeGuru moves files when they are sent to trash.  Usage of the trash is optional.  The default value of [i]/dev/null[/i] can be kept if the trash is not wanted.[br]Container path: /trash</description>
+          <default>/dev/null</default>
+          <display>always-hide</display>
           <required>false</required>
           <mask>false</mask>
         </unraid_template>

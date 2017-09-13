@@ -1,3 +1,3 @@
 #!/bin/sh
 cd /storage
-exec /usr/bin/dupeguru
+exec /usr/share/dupeguru/run.py

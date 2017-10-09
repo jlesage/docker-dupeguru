@@ -48,6 +48,12 @@ outside the container.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.7.2</version>
+        <date>2017-10-09</date>
+        <change>Now using baseimage v3.0.2, which brings the following changes:</change>
+        <change level="2">Fixed issue where nginx config change was not applied correctly on systems without IPV6 support and secure connection disabled.</change>
+      </release>
+      <release>
         <version>1.7.1</version>
         <date>2017-10-08</date>
         <change>Now using baseimage v3.0.1, which brings the following changes:</change>

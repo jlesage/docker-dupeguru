@@ -204,3 +204,10 @@ this option, since there is a good chance that created links won't make sense
 outside the container.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+## Support or Contact
+
+Having troubles with the container or have questions?  Please
+[create a new issue].
+
+[open an issue]: https://github.com/jlesage/docker-dupeguru/issues

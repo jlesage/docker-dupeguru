@@ -131,7 +131,7 @@ docker stop dupeguru
 ```
   3. Remove the container:
 ```
-docker stop dupeguru
+docker rm dupeguru
 ```
   4. Start the container using the `docker run` command.
 

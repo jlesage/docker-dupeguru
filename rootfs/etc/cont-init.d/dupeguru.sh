@@ -17,7 +17,7 @@ mkdir -p "$XDG_CONFIG_HOME/Hardcoded Software" \
 [ -f "$XDG_CONFIG_HOME/Hardcoded Software/dupeGuru.conf" ] || cp -v /defaults/dupeGuru.conf "$XDG_CONFIG_HOME/Hardcoded Software/"
 [ -f "$XDG_CONFIG_HOME/QtProject.conf" ] || cp -v /defaults/QtProject.conf "$XDG_CONFIG_HOME/"
 
-# Adjust ownership.
-chown -R $USER_ID:$GROUP_ID /config
+# Take ownership of the config directory content.
+chown -R $USER_ID:$GROUP_ID /config/*
 
 # vim: set ft=sh :

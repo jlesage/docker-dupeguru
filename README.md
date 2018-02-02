@@ -1,5 +1,5 @@
 # Docker container for dupeGuru
-[![Docker Automated build](https://img.shields.io/docker/automated/jlesage/dupeguru.svg)](https://hub.docker.com/r/jlesage/dupeguru/) [![](https://images.microbadger.com/badges/image/jlesage/dupeguru.svg)](http://microbadger.com/#/images/jlesage/dupeguru "Get your own image badge on microbadger.com") [![Build Status](https://travis-ci.org/jlesage/docker-dupeguru.svg?branch=master)](https://travis-ci.org/jlesage/docker-dupeguru) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
+[![Docker Automated build](https://img.shields.io/docker/automated/jlesage/dupeguru.svg)](https://hub.docker.com/r/jlesage/dupeguru/) [![Docker Image](https://images.microbadger.com/badges/image/jlesage/dupeguru.svg)](http://microbadger.com/#/images/jlesage/dupeguru) [![Build Status](https://travis-ci.org/jlesage/docker-dupeguru.svg?branch=master)](https://travis-ci.org/jlesage/docker-dupeguru) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-dupeguru.svg)](https://github.com/jlesage/docker-dupeguru/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
 
 This is a Docker container for dupeGuru.
 
@@ -102,6 +102,7 @@ container cannot be changed, but you are free to use any port on the host side.
 | 5900 | Optional | Port used to access the application's GUI via the VNC protocol.  Optional if no VNC client is used. |
 
 ## Docker Compose File
+
 Here is an example of a `docker-compose.yml` file that can be used with
 [Docker Compose](https://docs.docker.com/compose/overview/).
 

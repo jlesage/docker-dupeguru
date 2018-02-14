@@ -46,6 +46,7 @@ RUN \
     mv run.py qt/run_template.py && \
 
     # Compile dupeGuru.
+    mkdir -p build/help && \
     make PREFIX=/usr/ install && \
     cd .. && \
 

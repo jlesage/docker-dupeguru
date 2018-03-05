@@ -32,10 +32,10 @@ that can find duplicate filenames even when they are not exactly the same.
       * [Security](#security)
          * [Certificates](#certificates)
          * [VNC Password](#vnc-password)
-      * [dupeGuru Deletion Options](#dupeguru-deletion-options)
       * [Reverse Proxy](#reverse-proxy)
          * [Routing Based on Hostname](#routing-based-on-hostname)
          * [Routing Based on URL Path](#routing-based-on-url-path)
+      * [dupeGuru Deletion Options](#dupeguru-deletion-options)
       * [Support or Contact](#support-or-contact)
 
 ## Quick Start
@@ -283,22 +283,6 @@ the Remote Framebuffer Protocol [RFC](https://tools.ietf.org/html/rfc6143) (see
 section [7.2.2](https://tools.ietf.org/html/rfc6143#section-7.2.2)).  Any
 characters beyhond the limit are ignored.
 
-## dupeGuru Deletion Options
-
-When deleting duplicated files, dupeGuru offer two choices:
-  * Send files to trash
-  * Delete files directly
-
-The first option moves files to the `/trash` directory inside the container.
-This operation can be slow for large files since it may imply a copy of the
-data before the actual deletion.
-
-There is also an option to link deleted files.  It is not recommended to enable
-this option, since there is a good chance that created links won't make sense
-outside the container.
-
-[TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-
 ## Reverse Proxy
 
 The following sections contains NGINX configuration that need to be added in
@@ -395,6 +379,22 @@ server {
 }
 
 ```
+
+## dupeGuru Deletion Options
+
+When deleting duplicated files, dupeGuru offer two choices:
+  * Send files to trash
+  * Delete files directly
+
+The first option moves files to the `/trash` directory inside the container.
+This operation can be slow for large files since it may imply a copy of the
+data before the actual deletion.
+
+There is also an option to link deleted files.  It is not recommended to enable
+this option, since there is a good chance that created links won't make sense
+outside the container.
+
+[TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 ## Support or Contact
 

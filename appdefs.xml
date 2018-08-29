@@ -19,7 +19,7 @@ that can find duplicate filenames even when they are not exactly the same.
       <url>https://www.hardcoded.net/dupeguru/</url>
     </project>
     <unraid>
-      <support_url>https://forums.lime-technology.com/topic/56392-support-dupeguru/</support_url>
+      <support_url>https://forums.unraid.net/topic/56392-support-dupeguru/</support_url>
       <category>Tools:</category>
     </unraid>
     <container>

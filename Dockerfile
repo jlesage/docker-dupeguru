@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.6-v3.3.4
+FROM jlesage/baseimage-gui:alpine-3.6-v3.5.1
 
 # Define software versions.
 ARG DUPEGURU_VERSION=4.0.3

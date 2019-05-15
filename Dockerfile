@@ -8,10 +8,10 @@
 FROM jlesage/baseimage-gui:alpine-3.9-v3.5.2
 
 # Define software versions.
-ARG DUPEGURU_VERSION=4.0.3
+ARG DUPEGURU_VERSION=4.0.4
 
 # Define software download URLs.
-ARG DUPEGURU_URL=https://download.hardcoded.net/dupeguru-src-${DUPEGURU_VERSION}.tar.gz
+ARG DUPEGURU_URL=https://github.com/arsenetar/dupeguru
 
 # Define working directory.
 WORKDIR /tmp
@@ -30,29 +30,21 @@ RUN add-pkg \
 # Install dupeGuru.
 RUN \
     # Install packages needed by the build.
-    add-pkg --virtual build-dependencies build-base python3-dev gettext curl patch && \
+    add-pkg --virtual build-dependencies build-base python3-dev gettext curl patch git && \
 
     # Download the dupeGuru package.
     echo "Downloading dupeGuru..." && \
-    mkdir dupeguru-src && \
-    curl -# -L ${DUPEGURU_URL} | tar xz -C dupeguru-src && \
-
-    echo "Compiling dupeGuru..." && \
-    cd dupeguru-src && \
-
-    # Apply patch for os termination signals handling.
-    cp qt/run_template.py run.py && \
-    curl -# -L https://github.com/hsoft/dupeguru/commit/84011fb46d487bbfa12f2bd37b723de2a9118441.patch | patch -p1 && \
-    mv run.py qt/run_template.py && \
+    git clone --branch ${DUPEGURU_VERSION} ${DUPEGURU_URL} && \
+    sed-patch 's/4.0.4 RC/4.0.4/g' dupeguru/core/__init__.py && \
 
     # Compile dupeGuru.
-    mkdir -p build/help && \
+    echo "Compiling dupeGuru..." && \
+    cd dupeguru && \
     make PREFIX=/usr/ install && \
     cd .. && \
 
     # Remove unneeded files.
     rm -r /usr/share/applications && \
-    rm -r /usr/share/dupeguru/help && \
 
     # Enable direct file deletion by default.
     #sed-patch 's/self.direct = False/self.direct = True/' /usr/share/dupeguru/core/gui/deletion_options.py && \

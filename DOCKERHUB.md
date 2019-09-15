@@ -1,5 +1,5 @@
 # Docker container for dupeGuru
-[![Docker Image Size](https://img.shields.io/microbadger/image-size/jlesage/dupeguru)](http://microbadger.com/#/images/jlesage/dupeguru) [![Build Status](https://travis-ci.org/jlesage/docker-dupeguru.svg?branch=master)](https://travis-ci.org/jlesage/docker-dupeguru) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-dupeguru.svg)](https://github.com/jlesage/docker-dupeguru/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
+[![Docker Image Size](https://img.shields.io/microbadger/image-size/jlesage/dupeguru)](http://microbadger.com/#/images/jlesage/dupeguru) [![Build Status](https://drone.le-sage.com/api/badges/jlesage/docker-dupeguru/status.svg)](https://drone.le-sage.com/jlesage/docker-dupeguru) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-dupeguru.svg)](https://github.com/jlesage/docker-dupeguru/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
 
 This is a Docker container for [dupeGuru](https://www.hardcoded.net/dupeguru/).
 

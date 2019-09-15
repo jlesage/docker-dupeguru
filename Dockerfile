@@ -4,6 +4,8 @@
 # https://github.com/jlesage/docker-dupeguru
 #
 
+ARG DOCKER_IMAGE_VERSION=unknown
+
 # Pull base image.
 FROM jlesage/baseimage-gui:alpine-3.9-v3.5.2
 
@@ -88,6 +90,6 @@ VOLUME ["/trash"]
 LABEL \
       org.label-schema.name="dupeguru" \
       org.label-schema.description="Docker container for dupeGuru" \
-      org.label-schema.version="unknown" \
+      org.label-schema.version="$DOCKER_IMAGE_VERSION" \
       org.label-schema.vcs-url="https://github.com/jlesage/docker-dupeguru" \
       org.label-schema.schema-version="1.0"

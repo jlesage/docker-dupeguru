@@ -11,10 +11,10 @@ FROM jlesage/baseimage-gui:alpine-3.12-v3.5.6
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG DUPEGURU_VERSION=4.0.4
+ARG DUPEGURU_VERSION=4.1.0
 
 # Define software download URLs.
-ARG DUPEGURU_URL=https://github.com/arsenetar/dupeguru
+ARG DUPEGURU_URL=https://github.com/arsenetar/dupeguru/archive/${DUPEGURU_VERSION}.tar.gz
 
 # Define working directory.
 WORKDIR /tmp
@@ -24,34 +24,32 @@ RUN add-pkg \
         python3 \
         py3-qt5 \
         mesa-dri-swrast \
-        dbus \
-        && \
-    pip3 install \
-        Send2Trash>=1.3.0 \
-        hsaudiotag3k>=1.1.3
+        dbus
 
 # Install dupeGuru.
 RUN \
     # Install packages needed by the build.
-    add-pkg --virtual build-dependencies build-base python3-dev gettext curl patch git && \
-
+    add-pkg --virtual build-dependencies \
+        build-base \
+        python3-dev \
+        py3-pip \
+        gettext \
+        curl \
+        && \
     # Download the dupeGuru package.
     echo "Downloading dupeGuru..." && \
-    git clone --branch ${DUPEGURU_VERSION} ${DUPEGURU_URL} && \
-    sed-patch 's/4.0.4 RC/4.0.4/g' dupeguru/core/__init__.py && \
-
+    mkdir dupeguru && \
+    curl -L -# ${DUPEGURU_URL} | tar xz --strip 1 -C dupeguru && \
+    # Install Python dependencies.
+    pip3 install -r dupeguru/requirements.txt && \
     # Compile dupeGuru.
     echo "Compiling dupeGuru..." && \
     cd dupeguru && \
-    make PREFIX=/usr/ install && \
+    make PREFIX=/usr/ NO_VENV=1 install && \
     cd .. && \
-
-    # Remove unneeded files.
     rm -r /usr/share/applications && \
-
     # Enable direct file deletion by default.
     #sed-patch 's/self.direct = False/self.direct = True/' /usr/share/dupeguru/core/gui/deletion_options.py && \
-
     # Cleanup.
     del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
@@ -61,11 +59,9 @@ RUN \
     # Maximize only the main/initial window.
     sed-patch 's/<application type="normal">/<application type="normal" title="dupeGuru">/' \
         /etc/xdg/openbox/rc.xml && \
-
     # Make sure the main window is always in the background.
     sed-patch '/<application type="normal" title="dupeGuru">/a \    <layer>below</layer>' \
         /etc/xdg/openbox/rc.xml && \
-
     # Make sure dialog windows are always above other ones.
     sed-patch '/<\/applications>/i \  <application type="dialog">\n    <layer>above<\/layer>\n  <\/application>' \
         /etc/xdg/openbox/rc.xml

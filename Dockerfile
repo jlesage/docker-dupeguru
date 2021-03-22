@@ -11,7 +11,7 @@ FROM jlesage/baseimage-gui:alpine-3.12-v3.5.6
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG DUPEGURU_VERSION=4.1.0
+ARG DUPEGURU_VERSION=4.1.1
 
 # Define software download URLs.
 ARG DUPEGURU_URL=https://github.com/arsenetar/dupeguru/archive/${DUPEGURU_VERSION}.tar.gz

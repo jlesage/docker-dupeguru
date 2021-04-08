@@ -166,7 +166,6 @@ version: '3'
 services:
   dupeguru:
     image: jlesage/dupeguru
-    build: .
     ports:
       - "5800:5800"
     volumes:

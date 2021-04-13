@@ -48,6 +48,12 @@ outside the container.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.11.2</version>
+        <date>2021-04-13</date>
+        <change>Now using baseimage version 3.5.7, which brings the following change:</change>
+        <change level="2">Updated installed packages to get latest security fixes.</change>
+      </release>
+      <release>
         <version>1.11.1</version>
         <date>2021-03-22</date>
         <change>Updated dupeGuru to version 4.1.1.</change>

@@ -5,15 +5,14 @@
 # http://www.hardcoded.net/licenses/bsd_license
 
 import sys
+import os
 
 def running_in_docker():
-    with open('/proc/self/cgroup', 'r') as procfile:
-        for line in procfile:
-            fields = line.strip().split('/')
-            if fields[1] == 'docker':
-                return True
-
-    return False
+    path = '/proc/self/cgroup'
+    return (
+        os.path.exists('/.dockerenv') or
+        os.path.isfile(path) and any('docker' in line for line in open(path))
+    )
 
 if sys.platform == 'darwin':
     from .plat_osx import send2trash

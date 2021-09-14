@@ -48,6 +48,11 @@ outside the container.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.11.3</version>
+        <date>2021-09-14</date>
+        <change>Fixed issue where the container would fail to start under certain environments.</change>
+      </release>
+      <release>
         <version>1.11.2</version>
         <date>2021-04-13</date>
         <change>Now using baseimage version 3.5.7, which brings the following change:</change>

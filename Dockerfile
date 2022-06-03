@@ -41,7 +41,7 @@ RUN \
     mkdir dupeguru && \
     curl -L -# ${DUPEGURU_URL} | tar xz --strip 1 -C dupeguru && \
     # Install Python dependencies.
-    pip3 install -r dupeguru/requirements.txt && \
+    pip3 --no-cache-dir install -r dupeguru/requirements.txt && \
     # Compile dupeGuru.
     echo "Compiling dupeGuru..." && \
     cd dupeguru && \

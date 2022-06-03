@@ -48,6 +48,7 @@ RUN \
     make PREFIX=/usr/ NO_VENV=1 install && \
     cd .. && \
     rm -r /usr/share/applications && \
+    find /usr/share/dupeguru -type d -name tests | xargs rm -r && \
     # Enable direct file deletion by default.
     #sed-patch 's/self.direct = False/self.direct = True/' /usr/share/dupeguru/core/gui/deletion_options.py && \
     # Cleanup.

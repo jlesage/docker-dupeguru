@@ -48,6 +48,11 @@ outside the container.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.13.0</version>
+        <date>2022-07-15</date>
+        <change>Updated dupeGuru to version 4.3.1.</change>
+      </release>
+      <release>
         <version>1.12.1</version>
         <date>2022-03-27</date>
         <change>Updated dupeGuru to version 4.2.1.</change>

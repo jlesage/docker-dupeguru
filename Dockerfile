@@ -5,10 +5,10 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.15-v3.5.8
+FROM jlesage/baseimage-gui:alpine-3.16-v4.0.2
 
 # Docker image version is provided via build arg.
-ARG DOCKER_IMAGE_VERSION=unknown
+ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
 ARG DUPEGURU_VERSION=4.3.1
@@ -20,11 +20,17 @@ ARG DUPEGURU_URL=https://github.com/arsenetar/dupeguru/archive/${DUPEGURU_VERSIO
 WORKDIR /tmp
 
 # Install dependencies.
-RUN add-pkg \
-        python3 \
+RUN \
+    add-pkg \
         py3-qt5 \
+        # Needed for dark mode support.
+        adwaita-qt \
+        # Need a font.
+        font-croscore \
         mesa-dri-swrast \
-        dbus
+    && \
+    # Save some space by removing unused DRI drivers.
+    find /usr/lib/xorg/modules/dri/ -type f ! -name swrast_dri.so -delete
 
 # Install dupeGuru.
 RUN \
@@ -55,18 +61,6 @@ RUN \
     del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
 
-# Adjust openbox config.
-RUN \
-    # Maximize only the main/initial window.
-    sed-patch 's/<application type="normal">/<application type="normal" title="dupeGuru">/' \
-        /etc/xdg/openbox/rc.xml && \
-    # Make sure the main window is always in the background.
-    sed-patch '/<application type="normal" title="dupeGuru">/a \    <layer>below</layer>' \
-        /etc/xdg/openbox/rc.xml && \
-    # Make sure dialog windows are always above other ones.
-    sed-patch '/<\/applications>/i \  <application type="dialog">\n    <layer>above<\/layer>\n  <\/application>' \
-        /etc/xdg/openbox/rc.xml
-
 # Generate and install favicons.
 RUN \
     APP_ICON_URL=https://github.com/jlesage/docker-templates/raw/master/jlesage/images/dupeguru-icon.png && \
@@ -75,19 +69,22 @@ RUN \
 # Add files.
 COPY rootfs/ /
 
-# Set environment variables.
-ENV APP_NAME="dupeGuru" \
-    TRASH_DIR="/trash"
+# Set internal environment variables.
+RUN \
+    set-cont-env APP_NAME "dupeGuru" && \
+    set-cont-env APP_VERSION "$DUPEGURU_VERSION" && \
+    set-cont-env DOCKER_IMAGE_VERSION "$DOCKER_IMAGE_VERSION" && \
+    set-cont-env TRASH_DIR "/trash" && \
+    true
 
 # Define mountable directories.
-VOLUME ["/config"]
 VOLUME ["/storage"]
 VOLUME ["/trash"]
 
 # Metadata.
 LABEL \
-      org.label-schema.name="dupeguru" \
-      org.label-schema.description="Docker container for dupeGuru" \
-      org.label-schema.version="$DOCKER_IMAGE_VERSION" \
-      org.label-schema.vcs-url="https://github.com/jlesage/docker-dupeguru" \
-      org.label-schema.schema-version="1.0"
+    org.label-schema.name="dupeguru" \
+    org.label-schema.description="Docker container for dupeGuru" \
+    org.label-schema.version="${DOCKER_IMAGE_VERSION:-unknown}" \
+    org.label-schema.vcs-url="https://github.com/jlesage/docker-dupeguru" \
+    org.label-schema.schema-version="1.0"

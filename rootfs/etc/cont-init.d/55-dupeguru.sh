@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv sh
+#!/bin/sh
 
 set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
@@ -17,8 +17,5 @@ mkdir -p "$XDG_CONFIG_HOME/Hardcoded Software" \
 # Install default config if needed.
 [ -f "$XDG_CONFIG_HOME/Hardcoded Software/dupeGuru.conf" ] || cp -v /defaults/dupeGuru.conf "$XDG_CONFIG_HOME/Hardcoded Software/"
 [ -f "$XDG_CONFIG_HOME/QtProject.conf" ] || cp -v /defaults/QtProject.conf "$XDG_CONFIG_HOME/"
-
-# Take ownership of the config directory content.
-find /config -mindepth 1 -exec chown $USER_ID:$GROUP_ID {} \;
 
 # vim: set ft=sh :

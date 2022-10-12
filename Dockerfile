@@ -30,7 +30,7 @@ RUN \
         mesa-dri-swrast \
     && \
     # Save some space by removing unused DRI drivers.
-    find /usr/lib/xorg/modules/dri/ -type f ! -name swrast_dri.so -delete
+    find /usr/lib/xorg/modules/dri/ -type f ! -name swrast_dri.so -exec echo "Removing {}..." ';' -delete
 
 # Install dupeGuru.
 RUN \

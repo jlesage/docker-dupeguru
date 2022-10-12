@@ -38,6 +38,15 @@ app:
           this option, since there is a good chance that created links won't make sense
           outside the container.
   changelog:
+    - version: 22.10.1
+      date: 2022-10-12
+      changes:
+        - 'Versioning scheme changed to `YY.MM.SEQUENCE`.'
+        - 'Update of the baseimage to version 4.0.2 brings the following new features:'
+        - '2:Multi-arch image support.'
+        - '2:Support for dark mode.'
+        - '2:Support for remote window resize.'
+        - '2:Updated the web UI with a new, simplified and less intrusive look.'
     - version: 1.13.0
       date: 2022-07-15
       changes:

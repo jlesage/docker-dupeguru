@@ -38,6 +38,15 @@ app:
           this option, since there is a good chance that created links won't make sense
           outside the container.
   changelog:
+    - version: 22.10.2
+      date: 2022-10-24
+      changes:
+        - 'Update of the baseimage to version 4.1.1 brings the following changes:'
+        - '2:Fixed Websockify and favicons paths for compatibility with scenario where a reverse proxy with routing based un URL path is used.'
+        - '2:Collapse the setting section of the control panel by default on touch devices to accommodate the size taken by the on-screen keyboard.'
+        - '2:Include the Docker image platform in informational box printed during container startup.'
+        - '2:A umask value of `0000` was not properly applied.'
+        - '2:Fixed issue where the window manager configuration may fail to load.'
     - version: 22.10.1
       date: 2022-10-12
       changes:

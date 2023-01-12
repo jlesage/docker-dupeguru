@@ -1,7 +1,7 @@
 # Docker container for dupeGuru
 [![Docker Image Size](https://img.shields.io/docker/image-size/jlesage/dupeguru/latest)](https://hub.docker.com/r/jlesage/dupeguru/tags) [![Build Status](https://github.com/jlesage/docker-dupeguru/actions/workflows/build-image.yml/badge.svg?branch=master)](https://github.com/jlesage/docker-dupeguru/actions/workflows/build-image.yml) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-dupeguru.svg)](https://github.com/jlesage/docker-dupeguru/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
 
-This is a Docker container for [dupeGuru](https://www.hardcoded.net/dupeguru/).
+This is a Docker container for [dupeGuru](https://dupeguru.voltaicideas.net/).
 
 The GUI of the application is accessed through a modern web browser (no
 installation or configuration needed on the client side) or via any VNC client.

@@ -8,7 +8,7 @@ installation or configuration needed on the client side) or via any VNC client.
 
 ---
 
-[![dupeGuru logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/dupeguru-icon.png&w=200)](https://www.hardcoded.net/dupeguru/)[![dupeGuru](https://images.placeholders.dev/?width=256&height=110&fontFamily=Georgia,sans-serif&fontWeight=400&fontSize=52&text=dupeGuru&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://www.hardcoded.net/dupeguru/)
+[![dupeGuru logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/dupeguru-icon.png&w=110)](https://www.hardcoded.net/dupeguru/)[![dupeGuru](https://images.placeholders.dev/?width=256&height=110&fontFamily=Georgia,sans-serif&fontWeight=400&fontSize=52&text=dupeGuru&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://www.hardcoded.net/dupeguru/)
 
 dupeGuru is a tool to find duplicate files on your computer. It can scan either
 filenames or contents. The filename scan features a fuzzy matching algorithm

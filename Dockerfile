@@ -27,7 +27,7 @@ RUN \
         adwaita-qt \
         # Need a font.
         font-croscore \
-        mesa-dri-swrast \
+        mesa-dri-gallium \
     && \
     # Save some space by removing unused DRI drivers.
     find /usr/lib/xorg/modules/dri/ -type f ! -name swrast_dri.so -exec echo "Removing {}..." ';' -delete

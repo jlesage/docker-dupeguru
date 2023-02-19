@@ -17,7 +17,7 @@ app:
       dupeGuru is a tool to find duplicate files on your computer. It can scan either
       filenames or contents. The filename scan features a fuzzy matching algorithm
       that can find duplicate filenames even when they are not exactly the same.
-    url: https://www.hardcoded.net/dupeguru/
+    url: https://dupeguru.voltaicideas.net
   unraid:
     support_url: https://forums.unraid.net/topic/56392-support-dupeguru/
     category: "Tools:"

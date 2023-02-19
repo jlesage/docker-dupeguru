@@ -1,14 +1,14 @@
 # Docker container for dupeGuru
 [![Docker Image Size](https://img.shields.io/docker/image-size/jlesage/dupeguru/latest)](https://hub.docker.com/r/jlesage/dupeguru/tags) [![Build Status](https://github.com/jlesage/docker-dupeguru/actions/workflows/build-image.yml/badge.svg?branch=master)](https://github.com/jlesage/docker-dupeguru/actions/workflows/build-image.yml) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-dupeguru.svg)](https://github.com/jlesage/docker-dupeguru/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
 
-This is a Docker container for [dupeGuru](https://www.hardcoded.net/dupeguru/).
+This is a Docker container for [dupeGuru](https://dupeguru.voltaicideas.net).
 
 The GUI of the application is accessed through a modern web browser (no
 installation or configuration needed on the client side) or via any VNC client.
 
 ---
 
-[![dupeGuru logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/dupeguru-icon.png&w=110)](https://www.hardcoded.net/dupeguru/)[![dupeGuru](https://images.placeholders.dev/?width=256&height=110&fontFamily=monospace&fontWeight=400&fontSize=52&text=dupeGuru&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://www.hardcoded.net/dupeguru/)
+[![dupeGuru logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/dupeguru-icon.png&w=110)](https://dupeguru.voltaicideas.net)[![dupeGuru](https://images.placeholders.dev/?width=256&height=110&fontFamily=monospace&fontWeight=400&fontSize=52&text=dupeGuru&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://dupeguru.voltaicideas.net)
 
 dupeGuru is a tool to find duplicate files on your computer. It can scan either
 filenames or contents. The filename scan features a fuzzy matching algorithm

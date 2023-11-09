@@ -12,6 +12,7 @@ app:
   name: dupeguru
   friendly_name: dupeGuru
   gui_type: x11
+  base_os: alpine
   project:
     description: |-
       dupeGuru is a tool to find duplicate files on your computer. It can scan either

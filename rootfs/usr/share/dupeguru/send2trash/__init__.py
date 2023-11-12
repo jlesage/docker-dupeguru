@@ -8,6 +8,9 @@ import sys
 import os
 
 def running_in_docker():
+    # No need for dynamic check: this file is used only under Docker.
+    return True
+
     path = '/proc/self/cgroup'
     return (
         os.path.exists('/.dockerenv') or

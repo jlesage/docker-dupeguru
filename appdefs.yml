@@ -39,6 +39,10 @@ app:
           this option, since there is a good chance that created links won't make sense
           outside the container.
   changelog:
+    - version: 23.11.2
+      date: 2023-11-13
+      changes:
+        - 'Fixed exception during startup that might occur in some environments.'
     - version: 23.11.1
       date: 2023-11-10
       changes:

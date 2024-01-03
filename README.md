@@ -70,6 +70,7 @@ Where:
   - `/home/user`: This location contains files from your host that need to be accessible to the application.
 
 Browse to `http://your-host-ip:5800` to access the dupeGuru GUI.
+Opening folders can be done by pressing the plus icon in the lower left corner.
 Files from the host appear under the `/storage` folder in the container.
 
 ## Usage

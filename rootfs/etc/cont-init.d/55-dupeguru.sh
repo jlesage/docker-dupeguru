@@ -18,4 +18,4 @@ mkdir -p "$XDG_CONFIG_HOME/Hardcoded Software" \
 [ -f "$XDG_CONFIG_HOME/Hardcoded Software/dupeGuru.conf" ] || cp -v /defaults/dupeGuru.conf "$XDG_CONFIG_HOME/Hardcoded Software/"
 [ -f "$XDG_CONFIG_HOME/QtProject.conf" ] || cp -v /defaults/QtProject.conf "$XDG_CONFIG_HOME/"
 
-# vim: set ft=sh :
+# vim:ts=4:sw=4:et:sts=4

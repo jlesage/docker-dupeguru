@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.16-v4.5.3
+FROM jlesage/baseimage-gui:alpine-3.16-v4.6.3
 
 # Docker image version is provided via build arg.
 ARG DOCKER_IMAGE_VERSION=
@@ -26,11 +26,7 @@ RUN \
         # Needed for dark mode support.
         adwaita-qt \
         # Need a font.
-        font-croscore \
-        mesa-dri-gallium \
-    && \
-    # Save some space by removing unused DRI drivers.
-    find /usr/lib/xorg/modules/dri/ -type f ! -name swrast_dri.so -exec echo "Removing {}..." ';' -delete
+        font-croscore
 
 # Install dupeGuru.
 RUN \

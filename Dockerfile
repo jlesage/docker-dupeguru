@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.16-v4.6.3
+FROM jlesage/baseimage-gui:alpine-3.20-v4.6.3
 
 # Docker image version is provided via build arg.
 ARG DOCKER_IMAGE_VERSION=
@@ -23,6 +23,13 @@ WORKDIR /tmp
 RUN \
     add-pkg \
         py3-qt5 \
+        py3-distro \
+        py3-mutagen \
+        py3-polib \
+        py3-semantic-version \
+        py3-send2trash \
+        py3-sphinx \
+        py3-xxhash \
         # Needed for dark mode support.
         adwaita-qt \
         # Need a font.
@@ -42,8 +49,9 @@ RUN \
     echo "Downloading dupeGuru..." && \
     mkdir dupeguru && \
     curl -L -# ${DUPEGURU_URL} | tar xz --strip 1 -C dupeguru && \
-    # Install Python dependencies.
-    pip3 --no-cache-dir install -r dupeguru/requirements.txt && \
+    # Patch dupeGuru.
+    echo "Patching dupeGuru..." && \
+    sed-patch 's/import imp/from importlib import import_module/' /tmp/dupeguru/hscommon/pygettext.py && \
     # Compile dupeGuru.
     echo "Compiling dupeGuru..." && \
     cd dupeguru && \

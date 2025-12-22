@@ -39,6 +39,11 @@ app:
           this option, since there is a good chance that created links won't make sense
           outside the container.
   changelog:
+    - version: 25.12.5
+      date: 2025-12-22
+      changes:
+        - 'Updated baseimage to version 4.10.5, which brings the following changes:'
+        - '2:Fixed key combinations in some Linux applications broken by the Command key remapping.'
     - version: 25.12.4
       date: 2025-12-20
       changes:

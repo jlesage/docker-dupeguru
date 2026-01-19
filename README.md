@@ -764,3 +764,10 @@ Having troubles with the container or have questions? Please
 [create a new issue](https://github.com/jlesage/docker-dupeguru/issues).
 
 For other Dockerized applications, visit https://jlesage.github.io/docker-apps.
+
+## Contributors
+<a href="https://github.com/jlesage/docker-dupeguru/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=jlesage/docker-dupeguru" />
+</a>
+
+[contrib.rocks](https://contrib.rocks).

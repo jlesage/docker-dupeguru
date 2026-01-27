@@ -35,7 +35,7 @@ app:
           This operation can be slow for large files since it may imply a copy of the
           data before the actual deletion.
 
-          There is also an option to link deleted files.  It is not recommended to enable
+          There is also an option to link deleted files. It is not recommended to enable
           this option, since there is a good chance that created links won't make sense
           outside the container.
   changelog:
@@ -499,9 +499,9 @@ container:
       unraid_template:
         title: Trash
         description: >-
-          This is where dupeGuru moves files when they are sent to trash.  Usage
-          of the trash is optional.  The default value of /dev/null can be kept
-          if the trash is not wanted.
+          This is where duplicated files are moved when they are sent to trash.
+          Usage of the trash is optional. The default value of `/dev/null` can
+          be kept if the trash is not wanted.
         default: /dev/null
         display: advanced-hide
         required: false

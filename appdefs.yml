@@ -39,6 +39,11 @@ app:
           this option, since there is a good chance that created links won't make sense
           outside the container.
   changelog:
+    - version: 26.02.3
+      date: 2026-02-22
+      changes:
+        - 'Updated baseimage to version 4.11.2, bringing the following changes'
+        - '2:Fixed X server failing to find the appropriate Mesa driver on some setups.'
     - version: 26.02.2
       date: 2026-02-19
       changes:

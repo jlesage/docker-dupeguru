@@ -39,6 +39,10 @@ app:
           this option, since there is a good chance that created links won't make sense
           outside the container.
   changelog:
+    - version: 26.10.1
+      date: 2026-10-27
+      changes:
+        - 'Fixed a dupeGuru bug that could delete the original file when replacing duplicates with symlinks.'
     - version: 26.09.1
       date: 2026-09-22
       changes:

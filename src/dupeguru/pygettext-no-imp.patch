@@ -1,0 +1,15 @@
+# Python 3.12 removed the imp module. dupeGuru imports pygettext while
+# building modules, and that import fails before any helper that still
+# calls imp is used.
+#
+--- a/hscommon/pygettext.py
++++ b/hscommon/pygettext.py
+@@ -15,7 +15,7 @@
+ #
+ 
+ import os
+-import imp
++from importlib import import_module
+ import sys
+ import glob
+ import token

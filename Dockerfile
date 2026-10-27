@@ -4,9 +4,6 @@
 # https://github.com/jlesage/docker-dupeguru
 #
 
-# Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.20-v4.14.0
-
 # Docker image version is provided via build arg.
 ARG DOCKER_IMAGE_VERSION=
 
@@ -15,6 +12,18 @@ ARG DUPEGURU_VERSION=4.3.1
 
 # Define software download URLs.
 ARG DUPEGURU_URL=https://github.com/arsenetar/dupeguru/archive/${DUPEGURU_VERSION}.tar.gz
+
+# Build dupeGuru.
+FROM alpine:3.20 AS dupeguru
+ARG DUPEGURU_URL
+COPY src/dupeguru /build
+RUN /build/build.sh "$DUPEGURU_URL"
+
+# Pull base image.
+FROM jlesage/baseimage-gui:alpine-3.20-v4.14.0
+
+ARG DUPEGURU_VERSION
+ARG DOCKER_IMAGE_VERSION
 
 # Define working directory.
 WORKDIR /tmp
@@ -35,40 +44,6 @@ RUN \
         # Need a font.
         font-croscore
 
-# Patch applied to the upstream 4.3.1 sources during the build below.
-COPY src/dupeguru/dont-follow-directory-symlinks.patch /tmp/dont-follow-directory-symlinks.patch
-
-# Install dupeGuru.
-RUN \
-    # Install packages needed by the build.
-    add-pkg --virtual build-dependencies \
-        build-base \
-        python3-dev \
-        py3-pip \
-        gettext \
-        curl \
-        && \
-    # Download the dupeGuru package.
-    echo "Downloading dupeGuru..." && \
-    mkdir dupeguru && \
-    curl -L -# ${DUPEGURU_URL} | tar xz --strip 1 -C dupeguru && \
-    # Patch dupeGuru.
-    echo "Patching dupeGuru..." && \
-    sed-patch 's/import imp/from importlib import import_module/' /tmp/dupeguru/hscommon/pygettext.py && \
-    patch --batch -p1 -d dupeguru -i /tmp/dont-follow-directory-symlinks.patch && \
-    # Compile dupeGuru.
-    echo "Compiling dupeGuru..." && \
-    cd dupeguru && \
-    make PREFIX=/usr/ NO_VENV=1 install && \
-    cd .. && \
-    rm -r /usr/share/applications && \
-    find /usr/share/dupeguru -type d -name tests | xargs rm -r && \
-    # Enable direct file deletion by default.
-    #sed-patch 's/self.direct = False/self.direct = True/' /usr/share/dupeguru/core/gui/deletion_options.py && \
-    # Cleanup.
-    del-pkg build-dependencies && \
-    rm -rf /tmp/* /tmp/.[!.]*
-
 # Generate and install favicons.
 RUN \
     APP_ICON_URL=https://github.com/jlesage/docker-templates/raw/master/jlesage/images/dupeguru-icon.png && \
@@ -76,6 +51,7 @@ RUN \
 
 # Add files.
 COPY rootfs/ /
+COPY --from=dupeguru /tmp/dupeguru-install/usr/ /usr/
 
 # Set internal environment variables.
 RUN \

@@ -1,0 +1,148 @@
+# Do not follow directory symlinks while scanning, and do not delete a
+# duplicate whose path is only another name for the reference file.
+#
+# dupeGuru 4.3.1 descends into a symlink to a directory (DirEntry.is_dir()
+# follows links). The target's files are then listed a second time. Replacing
+# that "duplicate" with a symlink unlinks the only directory entry, so the
+# original file is replaced by a symlink to itself.
+#
+# Hard links are left alone: they are a second name, and removing one leaves
+# the reference. See https://github.com/arsenetar/dupeguru/issues/1111
+# and https://github.com/arsenetar/dupeguru/issues/1270.
+#
+--- a/core/fs.py
++++ b/core/fs.py
+@@ -391,6 +391,16 @@
+         return not path.is_symlink() and path.is_dir()
+ 
+ 
++def same_directory_entry(path_a, path_b):
++    """Return True when both paths name the same directory entry.
++
++    Hard links are separate names for one inode, so unlinking one leaves the
++    other. A directory symlink does not create a second name: ``real/file`` and
++    ``link/file`` are the same entry, and unlinking either removes the only one.
++    """
++    return os.path.realpath(path_a) == os.path.realpath(path_b)
++
++
+ def get_file(path, fileclasses=[File]):
+     """Wraps ``path`` around its appropriate :class:`File` class.
+ 
+--- a/core/directories.py
++++ b/core/directories.py
+@@ -36,6 +36,22 @@
+     EXCLUDED = 2
+ 
+ 
++def _is_link(entry):
++    """Return True for a symbolic link or a Windows directory junction."""
++    try:
++        if entry.is_symlink():
++            return True
++    except OSError:
++        return True
++    is_junction = getattr(entry, "is_junction", None)
++    if is_junction is None:
++        return False
++    try:
++        return bool(is_junction())
++    except OSError:
++        return True
++
++
+ class AlreadyThereError(Exception):
+     """The path being added is already in the directory list"""
+ 
+@@ -102,7 +118,12 @@
+                 for item in iter:
+                     j.check_if_cancelled()
+                     try:
+-                        if item.is_dir():
++                        # A symlink to a directory is not a second copy of that directory.
++                        # Descending into it lists the target's files again, and deleting
++                        # either path removes the only copy (#1111, #1270).
++                        if _is_link(item):
++                            continue
++                        if item.is_dir(follow_symlinks=False):
+                             if skip_dirs:
+                                 continue
+                             yield from self._get_files(item.path, fileclasses, j)
+@@ -143,6 +164,22 @@
+         except (OSError, fs.InvalidPath):
+             pass
+ 
++    def _iter_unique_roots(self):
++        # Two selected folders can be the same directory when one path reaches
++        # it through a symlink. Scanning both would offer that directory's files
++        # as duplicates of themselves.
++        seen = set()
++        for path in self._dirs:
++            try:
++                key = os.path.realpath(path)
++            except OSError:
++                key = os.path.normpath(str(path))
++            if key in seen:
++                logging.info("Skipping '%s' because it is already selected as '%s'", path, key)
++                continue
++            seen.add(key)
++            yield path
++
+     # ---Public
+     def add_path(self, path):
+         """Adds ``path`` to self, if not already there.
+@@ -169,7 +206,7 @@
+         :rtype: list of Path
+         """
+         try:
+-            subpaths = [p for p in path.glob("*") if p.is_dir()]
++            subpaths = [p for p in path.glob("*") if not p.is_symlink() and p.is_dir()]
+             subpaths.sort(key=lambda x: x.name.lower())
+             return subpaths
+         except OSError:
+@@ -183,7 +220,7 @@
+         if fileclasses is None:
+             fileclasses = [fs.File]
+         file_count = 0
+-        for path in self._dirs:
++        for path in self._iter_unique_roots():
+             for file in self._get_files(path, fileclasses=fileclasses, j=j):
+                 file_count += 1
+                 if type(j) != job.NullJob:
+@@ -198,7 +235,7 @@
+         if folderclass is None:
+             folderclass = fs.Folder
+         folder_count = 0
+-        for path in self._dirs:
++        for path in self._iter_unique_roots():
+             from_folder = folderclass(path)
+             for folder in self._get_folders(from_folder, j):
+                 folder_count += 1
+--- a/core/app.py
++++ b/core/app.py
+@@ -238,6 +238,17 @@
+             return
+         logging.debug("Sending '%s' to trash", dupe.path)
+         str_path = str(dupe.path)
++        group = self.results.get_group_of_duplicate(dupe)
++        # Do this before unlinking. Replacing a duplicate with a symlink calls
++        # os.remove/send2trash on the duplicate path first; when that path only
++        # differs from the reference because a directory symlink was followed,
++        # the unlink removes the reference itself.
++        if group is not None and fs.same_directory_entry(str_path, group.ref.path):
++            raise OSError(
++                tr("'{}' is the same file as the reference '{}'. It was not deleted.").format(
++                    str_path, group.ref.path
++                )
++            )
+         if direct_deletion:
+             if op.isdir(str_path):
+                 shutil.rmtree(str_path)
+@@ -246,7 +257,6 @@
+         else:
+             send2trash(str_path)  # Raises OSError when there's a problem
+         if link_deleted:
+-            group = self.results.get_group_of_duplicate(dupe)
+             ref = group.ref
+             linkfunc = os.link if use_hardlinks else os.symlink
+             linkfunc(str(ref.path), str_path)

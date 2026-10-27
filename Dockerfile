@@ -35,6 +35,9 @@ RUN \
         # Need a font.
         font-croscore
 
+# Patch applied to the upstream 4.3.1 sources during the build below.
+COPY src/dupeguru/dont-follow-directory-symlinks.patch /tmp/dont-follow-directory-symlinks.patch
+
 # Install dupeGuru.
 RUN \
     # Install packages needed by the build.
@@ -52,6 +55,7 @@ RUN \
     # Patch dupeGuru.
     echo "Patching dupeGuru..." && \
     sed-patch 's/import imp/from importlib import import_module/' /tmp/dupeguru/hscommon/pygettext.py && \
+    patch --batch -p1 -d dupeguru -i /tmp/dont-follow-directory-symlinks.patch && \
     # Compile dupeGuru.
     echo "Compiling dupeGuru..." && \
     cd dupeguru && \

@@ -20,7 +20,7 @@ COPY src/dupeguru /build
 RUN /build/build.sh "$DUPEGURU_URL"
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.20-v4.15.0
+FROM jlesage/baseimage-gui:alpine-3.20-v4.15.1
 
 ARG DUPEGURU_VERSION
 ARG DOCKER_IMAGE_VERSION
